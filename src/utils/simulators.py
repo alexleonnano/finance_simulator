@@ -5,7 +5,7 @@ import numpy as np
 
 def simulate_investment_growth(principal, rate, time, n, monthly_contribution=0, monthly_withdrawal=0):
     """
-    Simulate the growth of an investment over time with monthly contributions/withdrawals.
+    Simulate the growth of an investment account over time with monthly contributions/withdrawals.
 
     :param principal: The initial amount of money (the principal).
     :param rate: The annual interest rate (as a decimal, e.g., 0.05 for 5%).
@@ -135,7 +135,18 @@ def simulate_fund():
 
 def simulate_multiple_accounts(principal, ratio, rate_1, rate_2, time, n, monthly_contribution_1=0, monthly_contribution_2=0, monthly_withdrawal_1=0, monthly_withdrawal_2=0):
     """
-    Simulate multiple accounts with different parameters, work in progress.
+    Simulate an investment scenario where 2 accounts are involved under different different interest rates, monthly contributions and withdrawals. Useful for comparing different investment strategies from the same pool of money.
+
+    param principal: The total initial amount of money
+    param ratio: The percentage split between the different accounts (0-100). For example, a ratio of 60 would be a 60/40 split between the two accounts, where the first one would be the 60% and the second one the 40%.
+    param rate_1: The annual interest rate for the first account (as a decimal, e.g., 0.05 for 5%).
+    param rate_2: The annual interest rate for the second account (as a decimal, e.g., 0.05 for 5%).
+    param time: The time the money is invested for (in years).
+    param n: The number of times that interest is compounded per year.
+    param monthly_contribution_1: Amount added to the first account each month (default: 0).
+    param monthly_contribution_2: Amount added to the second account each month (default: 0).
+    param monthly_withdrawal_1: Amount taken from the first account each month (default: 0).
+    param monthly_withdrawal_2: Amount taken from the second account each month (default: 0).
     """
     if not (0 <= ratio <= 100):
         raise ValueError("Ratio must be between 0 and 100.")
