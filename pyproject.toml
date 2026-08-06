@@ -1,0 +1,17 @@
+[project]
+name = "finance_simulator"
+version = "0.1.0"
+description = "Tools to simulate compound interest for savings and retirement scenarios."
+requires-python = ">=3.9"
+dependencies = [
+    "matplotlib",
+    "numpy",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
