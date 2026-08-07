@@ -1,5 +1,5 @@
 # Load tools
-from src.simulation import InvestmentAccount, Portfolio, plot_portfolio
+from src.simulation import Portfolio, plot_portfolio
 
 # Setup paramters for the portfolio
 principal = 150000
