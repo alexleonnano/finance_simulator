@@ -17,10 +17,13 @@ class InvestmentAccount:
     :param monthly_contribution: Amount added each month (default: 0).
     :param monthly_withdrawal: Amount withdrawn each month (default: 0).
     :param label: Human-readable name, used in warnings and plot legends.
+    :param currency: ISO currency code the amounts are denominated in
+        (default: "EUR"). Purely descriptive — used by the plotting
+        functions to label axes/amounts correctly; doesn't convert values.
     """
 
     def __init__(self, principal, rate, time, n=12, monthly_contribution=0,
-                 monthly_withdrawal=0, label="Cuenta"):
+                 monthly_withdrawal=0, label="Cuenta", currency="EUR"):
         if monthly_contribution > 0 and monthly_withdrawal > 0:
             print(f"Warning ({label}): Both contribution and withdrawal are set. "
                   "Consider using only one.")
@@ -32,6 +35,7 @@ class InvestmentAccount:
         self.monthly_contribution = monthly_contribution
         self.monthly_withdrawal = monthly_withdrawal
         self.label = label
+        self.currency = currency
 
         # Filled in by _simulate()
         self.balances = None

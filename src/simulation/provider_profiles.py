@@ -24,6 +24,7 @@ class FundProviderProfile:
     sep: str = ","          # CSV only; ignored for Excel files
     decimal: str = "."
     encoding: str = "utf-8"  # CSV only; ignored for Excel files
+    currency_column: str = None  # optional; column holding the fund's ISO currency code
 
 
 PROVIDER_PROFILES = {
@@ -36,6 +37,7 @@ PROVIDER_PROFILES = {
         sep=";",
         decimal=",",
         encoding="utf-8-sig",
+        currency_column="DIVISA",
     ),
     "santander": FundProviderProfile(
         name="santander",
@@ -44,5 +46,6 @@ PROVIDER_PROFILES = {
         date_format="%d/%m/%Y",
         header_row=1,  # a title row (fund name + ISIN) precedes the real header
         decimal=",",
+        currency_column="Divisa",
     ),
 }

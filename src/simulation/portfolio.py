@@ -19,11 +19,14 @@ class Portfolio:
     :param n: Compounding frequency per year (see InvestmentAccount note).
     :param monthly_contribution_1, monthly_contribution_2: Monthly deposits.
     :param monthly_withdrawal_1, monthly_withdrawal_2: Monthly withdrawals.
+    :param currency_1, currency_2: ISO currency code for each account
+        (default: "EUR"). Purely descriptive, see InvestmentAccount.
     """
 
     def __init__(self, principal, ratio, rate_1, rate_2, time, n,
                  monthly_contribution_1=0, monthly_contribution_2=0,
-                 monthly_withdrawal_1=0, monthly_withdrawal_2=0):
+                 monthly_withdrawal_1=0, monthly_withdrawal_2=0,
+                 currency_1="EUR", currency_2="EUR"):
         if not (0 <= ratio <= 100):
             raise ValueError("Ratio must be between 0 and 100.")
 
@@ -36,10 +39,12 @@ class Portfolio:
 
         self.account_1 = InvestmentAccount(
             principal_1, rate_1, time, n,
-            monthly_contribution_1, monthly_withdrawal_1, label="Cuenta 1")
+            monthly_contribution_1, monthly_withdrawal_1, label="Cuenta 1",
+            currency=currency_1)
         self.account_2 = InvestmentAccount(
             principal_2, rate_2, time, n,
-            monthly_contribution_2, monthly_withdrawal_2, label="Cuenta 2")
+            monthly_contribution_2, monthly_withdrawal_2, label="Cuenta 2",
+            currency=currency_2)
 
     @property
     def accounts(self):

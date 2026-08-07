@@ -77,4 +77,31 @@ def load_fund_prices(file_path, provider=None, **overrides):
     clean = clean.drop_duplicates(subset="date")
     clean = clean.sort_values("date").reset_index(drop=True)
 
+    # Currency is constant for a given fund, so it travels as metadata
+    # (df.attrs) rather than as a repeated column. Falls back to "EUR" if
+    # the provider has no currency_column configured, or the raw file
+    # doesn't carry it.
+    clean.attrs["currency"] = _extract_currency(df, profile, file_path)
+
     return clean
+
+
+def _extract_currency(raw_df, profile, file_path):
+    """Reads the fund's ISO currency code from the raw (pre-clean) DataFrame,
+    per the provider's currency_column. Returns 'EUR' if unconfigured."""
+    if profile.currency_column is None:
+        return "EUR"
+    if profile.currency_column not in raw_df.columns:
+        raise ValueError(
+            f"Configured currency_column '{profile.currency_column}' not found in "
+            f"{file_path}. Available columns: {list(raw_df.columns)}"
+        )
+    values = raw_df[profile.currency_column].dropna().unique()
+    if len(values) == 0:
+        return "EUR"
+    if len(values) > 1:
+        raise ValueError(
+            f"Expected a single currency in {file_path}, found {list(values)} in "
+            f"column '{profile.currency_column}'."
+        )
+    return str(values[0]).strip().upper()
